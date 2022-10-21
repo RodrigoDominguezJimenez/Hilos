@@ -5,7 +5,7 @@ class VentanaPrincipal(QMainWindow):
     # constructor
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Peliculas piratas")
+        self.setWindowTitle("Peliculas maniacas")
         layout = QHBoxLayout()
 
         buscar = QHBoxLayout()
