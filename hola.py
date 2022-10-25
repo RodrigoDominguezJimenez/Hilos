@@ -1,28 +1,28 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHBoxLayout, QLineEdit, QPushButton, QWidget
 
 
-class VentanaPrincipal(QMainWindow):
+class main_window (QMainWindow):
     # constructor
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Peliculas maniacas")
+        self.setWindowTitle("Peliculas piratas")
         layout = QHBoxLayout()
 
-        buscar = QHBoxLayout()
+        search = QHBoxLayout()
 
-        self.bbuscar = QLineEdit()
-        buscar.addWidget(self.bbuscar)
-        self.bbuscar = QPushButton("Buscar")
-        buscar.addWidget(self.bbuscar)
+        self.ssearch = QLineEdit()
+        search.addWidget(self.ssearch)
+        self.ssearch = QPushButton("Buscar")
+        search.addWidget(self.ssearch)
 
-        layout.addLayout(buscar)
+        layout.addLayout(search)
 
-        contenedor = QWidget()
-        contenedor.setLayout(layout)
-        self.setCentralWidget(contenedor)
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
 
 
 app = QApplication([])
-ventana = VentanaPrincipal()
-ventana.show()
+window = main_window ()
+window.show()
 app.exec_()
