@@ -11,7 +11,7 @@ Hace referencia a las técnicas de programación que son utilizadas para expresa
 La programación concurrente no es más que la forma en la cual podemos resolver ciertas problemáticas de forma concurrente, es decir, ejecutando múltiples tareas a la misma vez y no de forma secuencial.En un programa concurrente las tareas puede continuar sin la necesidad que otras comiencen o finalicen.
 #### RESULTADOS
 
-#Aspectos teoricos de hilos.
+ # Aspectos teoricos de hilos
 
 Un hilo es una unidad básica de utilización de CPU, la cual contiene un id de hilo, su
 propio program counter, un conjunto de registros, y una pila; que se representa a nivel
