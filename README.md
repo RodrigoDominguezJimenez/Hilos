@@ -26,23 +26,15 @@ Los hilos comparten memoria y recursos.
 
 Los hilos ocupan una dirección diferente en la memoria
 
-
 Ventajas de usar hilos:
 
-• Respuesta: el tiempo de respuesta mejora, ya que el programa puede
-continuar ejecutándose, aunque parte de él esté bloqueado.
+-  Respuesta: el tiempo de respuesta mejora, ya que el programa puede continuar ejecutándose, aunque parte de él esté bloqueado.
 
-• Compartir recursos: los hilos comparten la memoria y los recursos del
-proceso al que pertenecen, por lo que se puede tener varios hilos de
-ejecución dentro del mismo espacio de direcciones.
+-  Compartir recursos: los hilos comparten la memoria y los recursos del proceso al que pertenecen, por lo que se puede tener varios hilos de ejecución dentro del mismo espacio de direcciones.
 
-• Economía: Es más fácil la creación, cambio de contexto y gestión de
-hilos que de procesos.
+-  Economía: Es más fácil la creación, cambio de contexto y gestión de hilos que de procesos.
 
-• Utilización múltiples CPUs: permite que hilos de un mismo proceso
-ejecuten en diferentes CPUs a la vez. En un proceso mono-hilo, un
-proceso ejecuta en una única CPU, independientemente de cuantas tenga
-disponibles.
+-  Utilización múltiples CPUs: permite que hilos de un mismo proceso ejecuten en diferentes CPUs a la vez. En un proceso mono-hilo, un proceso ejecuta en una única CPU, independientemente de cuantas tenga disponibles.
 
 **Biblioteca de Hilos en Python**
 
