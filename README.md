@@ -26,7 +26,7 @@ Los hilos comparten memoria y recursos.
 
 Los hilos ocupan una dirección diferente en la memoria
 
-Ventajas de usar hilos:
+*Ventajas de usar hilos:*
 
 -  Respuesta: el tiempo de respuesta mejora, ya que el programa puede continuar ejecutándose, aunque parte de él esté bloqueado.
 
