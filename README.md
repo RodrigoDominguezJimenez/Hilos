@@ -11,6 +11,7 @@ Hace referencia a las técnicas de programación que son utilizadas para expresa
 La programación concurrente no es más que la forma en la cual podemos resolver ciertas problemáticas de forma concurrente, es decir, ejecutando múltiples tareas a la misma vez y no de forma secuencial.En un programa concurrente las tareas puede continuar sin la necesidad que otras comiencen o finalicen.
 
 **Biblioteca de Hilos en Python**
+
 **Objetos Thread**
 
 En Python un objeto **“Thread”** representa una determinada operación que se ejecuta como un subproceso independiente, es decir, es la representación de un hilo. Se pueden definir de dos formas los hilos:
@@ -28,13 +29,21 @@ Para ayudarnos a que los programas que utilicen hilos tengan un mejor comportami
 En el ejemplo que os presentamos a continuación se utilizan estos argumentos para pasar una variable con el número de hilo que se ejecuta en un momento dado y un diccionario con tres valores que ajustan el funcionamiento del contador en todos los hilos:
 
 	import threading
+	
 	def contar(num_hilo, **datos):
+	
 	contador = datos['inicio']
+	
 	incremento = datos['incremento']
+	
 	limite = datos['limite']
+	
 	while contador<=limite:
+	
 	print('hilo:', num_hilo, 'contador:', contador)
+	
 	contador+=incremento
+
 
 #### RESULTADOS
 
