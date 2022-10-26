@@ -1,7 +1,9 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication,QLabel ,QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, QHBoxLayout, QGridLayout, QWidget, QFrame
+from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, \
+    QHBoxLayout, QGridLayout, QWidget, QFrame
 import requests
 from PyQt5.QtGui import QImage, QPixmap
+
 
 # Sub-clase que hereda de QMainWindow
 class VentanaPrincipal(QMainWindow):
@@ -33,9 +35,8 @@ class VentanaPrincipal(QMainWindow):
         self.center1.addLayout(self.superior)
         self.center1.addLayout(self.center)
         self.container.setLayout(self.center1)
-        #self.container.setLayout(self.center)
+        # self.container.setLayout(self.center)
         self.setCentralWidget(self.container)
-
 
 
 if __name__ == '__main__':
