@@ -9,33 +9,54 @@ class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
         self.container = QWidget()
+        self.container2 = QWidget()
 
         self.superior = QHBoxLayout()
         self.center = QGridLayout()
         self.center1 = QVBoxLayout()
+
         self.texto = QLineEdit()
         self.button = QPushButton("Buscar")
         self.image = QImage()
         self.image_label = QLabel()
-        self.url_image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR8sFD9yQ58vBr-2YGhPB6hyhF0hZKj2IlNaJBVQEKxViNlS6P'
+        self.url_image = []
 
         self.setup_ui()
 
     def setup_ui(self):
         self.setWindowTitle('uvFlix')
-        self.image.loadFromData(requests.get(self.url_image).content)
-        pixmap = QPixmap(self.image)
-        pixmap2 = pixmap.scaledToWidth(200)
-        self.image_label.setPixmap(pixmap2)
+        self.setSizePolicy(500,400)
+
+        self.texto.setFixedWidth(100)
+        self.texto.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+
+        self.button.clicked.connect(lambda: self.search_url())
+
         self.superior.addWidget(self.texto)
         self.superior.addWidget(self.button)
         self.center.addWidget(self.image_label)
+
         self.center1.addLayout(self.superior)
         self.center1.addLayout(self.center)
         self.container.setLayout(self.center1)
-        #self.container.setLayout(self.center)
+
+        url = self.url_image[1]
+        self.image.loadFromData(requests.get(url).content)
+        pixmap = QPixmap(self.image)
+        pixmap2 = pixmap.scaledToWidth(200)
+        self.image_label.setPixmap(pixmap2)
+
         self.setCentralWidget(self.container)
 
+    def search_url(self):
+        d = 'https://clandestina-hds.com/movies/title?search='
+        t = d + self.texto.text()
+        r = requests.get(t)
+        data = r.json()
+        data2 = data['results']
+        data3 = data2[0:3]
+        for i in data3:
+            self.url_image.append(i['image'])
 
 
 if __name__ == '__main__':
