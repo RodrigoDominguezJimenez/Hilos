@@ -1,7 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, QHBoxLayout, QGridLayout, QWidget, QFrame
+from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, \
+    QHBoxLayout, QGridLayout, QWidget, QFrame
 import requests
 from PyQt5.QtGui import QImage, QPixmap
 import threading
+
 
 class VentanaPrincipal(QMainWindow):
 
@@ -15,7 +17,7 @@ class VentanaPrincipal(QMainWindow):
         self.center = QGridLayout()
         self.center1 = QVBoxLayout()
 
-        self.container_two= QWidget()
+        self.container_two = QWidget()
         self.center_two = QVBoxLayout()
 
         self.texto = QLineEdit()
@@ -52,13 +54,13 @@ class VentanaPrincipal(QMainWindow):
 
     def setup_ui(self):
         self.setWindowTitle('uvFlix')
-        self.resize(1000,350)
+        self.resize(1000, 350)
 
         self.texto.setFixedWidth(800)
         self.texto.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
 
         self.button.setFixedWidth(50)
-        self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed))
+        self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
 
         self.button.clicked.connect(lambda: self.thread.start())
         self.infor.clicked.connect(lambda: self.click(0))
@@ -69,11 +71,11 @@ class VentanaPrincipal(QMainWindow):
 
         self.superior.addWidget(self.texto)
         self.superior.addWidget(self.button)
-        x=0
+        x = 0
         for i in self.image_label:
-            self.center.addWidget(i,1,x)
-            x = x+1
-        self.center.addWidget(self.infor,2,0)
+            self.center.addWidget(i, 1, x)
+            x = x + 1
+        self.center.addWidget(self.infor, 2, 0)
         self.center.addWidget(self.infor2, 2, 1)
         self.center.addWidget(self.infor3, 2, 2)
         self.center.addWidget(self.infor4, 2, 3)
@@ -90,7 +92,7 @@ class VentanaPrincipal(QMainWindow):
         movies = self.texto.text().split(sep=',', maxsplit=5)
         t = []
         for h in movies:
-            t.append(d+h)
+            t.append(d + h)
 
         r = []
 
@@ -110,7 +112,7 @@ class VentanaPrincipal(QMainWindow):
 
         for n in data2:
             data3.append(n[0:3])
-        y=0
+        y = 0
         for k in data3:
             self.url_image.append(k[0]['image'])
             self.id.append(k[0]['id'])
@@ -118,8 +120,8 @@ class VentanaPrincipal(QMainWindow):
             self.description.append(k[0]['description'])
             self.runTime.append(k[0]['runtimeStr'])
             self.plot.append(k[0]['plot'])
-            y= y+1
-        x=0
+            y = y + 1
+        x = 0
         for m in self.image:
             if x != y:
                 m.loadFromData(requests.get(self.url_image[x]).content)
@@ -128,7 +130,7 @@ class VentanaPrincipal(QMainWindow):
                 self.image_label[x].setPixmap(pixmap2)
                 x = x + 1
 
-    def click(self,num):
+    def click(self, num):
         x = num
         self.windowTwo.setWindowTitle('Informacion')
 
@@ -153,16 +155,10 @@ class VentanaPrincipal(QMainWindow):
         self.center_two.addWidget(self.runTime_label)
         self.center_two.addWidget(self.plot_label)
 
-
         self.container_two.setLayout(self.center_two)
 
         self.windowTwo.setCentralWidget(self.container_two)
         self.windowTwo.show()
-
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -171,4 +167,4 @@ if __name__ == '__main__':
     window.show()
     app.exec_()
 
-    #moana, jumanji, frozen, Big Hero 6, Inside Out
+    # moana, jumanji, frozen, Big Hero 6, Inside Out
