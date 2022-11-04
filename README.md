@@ -12,7 +12,13 @@ La programación concurrente no es más que la forma en la cual podemos resolver
 
  **Aspectos teoricos de hilos**
 
-webiwabo
+Un hilo es una unidad básica de utilización de CPU, la cual contiene un id de hilo, su
+propio program counter, un conjunto de registros, y una pila; que se representa a nivel
+del sistema operativo con una estructura llamada TCB (thread control block).
+Los hilos comparten con otros hilos que pertenecen al mismo proceso la sección de
+código, la sección de datos, entre otras cosas. Si un proceso tiene múltiples hilos, puede
+realizar más de una tarea a la vez (esto es real cuando se posee más de un CPU).
+Un hilo es el proceso del sistema operativo con características distintas de las de un proceso normal:
 
 Los hilos existen como subconjuntos de los procesos.
 
