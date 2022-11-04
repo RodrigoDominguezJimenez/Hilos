@@ -7,22 +7,24 @@ class VentanaPrincipal(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.windowTwo = QMainWindow()
+
         self.container = QWidget()
         self.container2 = QWidget()
-
         self.superior = QHBoxLayout()
         self.center = QGridLayout()
-        #self.center = QHBoxLayout()
         self.center1 = QVBoxLayout()
+
+        self.container_two= QWidget()
+        self.center_two = QVBoxLayout()
 
         self.texto = QLineEdit()
         self.button = QPushButton("Buscar")
-        self.infor = [QPushButton("informacion"),
-                      QPushButton("informacion"),
-                      QPushButton("informacion"),
-                      QPushButton("informacion"),
-                      QPushButton("informacion")
-                      ]
+        self.infor = QPushButton("informacion")
+        self.infor2 = QPushButton("informacion")
+        self.infor3 = QPushButton("informacion")
+        self.infor4 = QPushButton("informacion")
+        self.infor5 = QPushButton("informacion")
         self.image = [QImage(),
                       QImage(),
                       QImage(),
@@ -34,9 +36,12 @@ class VentanaPrincipal(QMainWindow):
                             QLabel(),
                             QLabel()]
         self.url_image = []
-        self.id = None
-        self.title = None
-        self.description = None
+        self.id = []
+        self.id_label = QLabel()
+        self.title = []
+        self.title_label = QLabel()
+        self.description = []
+        self.description_label = QLabel()
         self.thread = threading.Thread(target=self.search_url)
 
         self.setup_ui()
@@ -52,7 +57,11 @@ class VentanaPrincipal(QMainWindow):
         self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed))
 
         self.button.clicked.connect(lambda: self.thread.start())
-        #self.infor.clicked.connect(lambda: self.click)
+        self.infor.clicked.connect(lambda: self.click(0))
+        self.infor2.clicked.connect(lambda: self.click(1))
+        self.infor3.clicked.connect(lambda: self.click(2))
+        self.infor4.clicked.connect(lambda: self.click(3))
+        self.infor5.clicked.connect(lambda: self.click(4))
 
         self.superior.addWidget(self.texto)
         self.superior.addWidget(self.button)
@@ -60,10 +69,11 @@ class VentanaPrincipal(QMainWindow):
         for i in self.image_label:
             self.center.addWidget(i,1,x)
             x = x+1
-        #self.center.addWidget(self.image_label, 1, 0)
-        #self.center.addWidget(self.image_label2, 1, 2)
-        #self.center.addWidget(self.image_label3, 1, 3)
-       # self.center.addWidget(self.infor)
+        self.center.addWidget(self.infor,2,0)
+        self.center.addWidget(self.infor2, 2, 1)
+        self.center.addWidget(self.infor3, 2, 2)
+        self.center.addWidget(self.infor4, 2, 3)
+        self.center.addWidget(self.infor5, 2, 4)
 
         self.center1.addLayout(self.superior)
         self.center1.addLayout(self.center)
@@ -99,6 +109,9 @@ class VentanaPrincipal(QMainWindow):
 
         for k in data3:
             self.url_image.append(k[1]['image'])
+            self.id.append(k[1]['id'])
+            self.title.append(k[1]['title'])
+            self.description.append(k[1]['description'])
         x=0
         for m in self.image:
             m.loadFromData(requests.get(self.url_image[x]).content)
@@ -107,8 +120,30 @@ class VentanaPrincipal(QMainWindow):
             self.image_label[x].setPixmap(pixmap2)
             x = x + 1
 
-    def click(self):
-        self.image_label.show()
+    def click(self,num):
+        x = num
+        self.windowTwo.setWindowTitle('Informacion')
+
+        self.id_label('ID: ',self.id[x])
+        self.title_label('Title: ',self.title[x])
+        self.description_label('Description: ',self.description[x])
+
+        self.center_two.addWidget(self.id_label)
+        self.center_two.addWidget(self.title_label)
+        self.center_two.addWidget(self.description_label)
+
+        self.container_two.addLayout(self.center_two)
+
+        self.windowTwo.setCentralWidget(self.center_two)
+        self.windowTwo.show()
+
+        w=self.windowTwo()
+        w.show()
+
+
+
+
+
 
 
 if __name__ == '__main__':
