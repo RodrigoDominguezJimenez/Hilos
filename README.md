@@ -72,4 +72,4 @@ En el ejemplo que presentamos a continuación que se utilizan estos argumentos p
 
 
 #### RESULTADOS
-Interfaz, sus campos y busqueda de películas en el archivo **Busqueda de Películas**
+Interfaz, sus campos y busqueda de películas en el archivo **Busqueda de Películas.pptx**
