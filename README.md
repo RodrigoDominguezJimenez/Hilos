@@ -40,9 +40,7 @@ Los hilos ocupan una dirección diferente en la memoria
 
 **Objetos Thread**
 
-En Python un objeto **“Thread”** representa una determinada operación que se ejecuta como un subproceso independiente, es decir, es la representación de un hilo. Se pueden definir de dos formas los hilos:
-La primera consiste en pasar al método constructor un objeto invocable, como una función, que es llamada cuando se inicia la ejecución del hilo.
-La segunda sería creando una subclase de “Thread” en la que se reescribe el método “run()” y/o el constructor “__init__()”.
+amongus
 
 En el siguiente ejemplo vamos a crear dos hilos que llaman a la función contar. En dicha función se utiliza una variable contadora para contar hasta cien. Los objetos “Thread” (los hilos) utilizan el argumento “target” para establecer el nombre de la función a la que hay que llamar. Una vez que los hilos se hayan creado se iniciarán con el método “start()”. A todos los hilos se les asigna, automáticamente, un nombre en el momento de la creación que se puede conocer con el método “getName()” y, también, un identificador único (en el momento que son iniciados) que se puede obtener accediendo al valor del atributo “ident”:
 
