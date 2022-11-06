@@ -1,9 +1,7 @@
-from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, \
-    QHBoxLayout, QGridLayout, QWidget, QFrame
+from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMainWindow, QLineEdit, QPushButton, QHBoxLayout, QGridLayout, QWidget, QFrame
 import requests
 from PyQt5.QtGui import QImage, QPixmap
 import threading
-
 
 class VentanaPrincipal(QMainWindow):
 
@@ -17,7 +15,7 @@ class VentanaPrincipal(QMainWindow):
         self.center = QGridLayout()
         self.center1 = QVBoxLayout()
 
-        self.container_two = QWidget()
+        self.container_two= QWidget()
         self.center_two = QVBoxLayout()
 
         self.texto = QLineEdit()
@@ -37,30 +35,51 @@ class VentanaPrincipal(QMainWindow):
                             QLabel(),
                             QLabel(),
                             QLabel()]
-        self.url_image = []
-        self.id = []
+        self.url_image = None
+        self.id = [None,
+                   None,
+                   None,
+                   None,
+                   None]
         self.id_label = QLabel()
-        self.title = []
+        self.title = [None,
+                      None,
+                      None,
+                      None,
+                      None]
         self.title_label = QLabel()
-        self.description = []
+        self.description = [None,
+                            None,
+                            None,
+                            None,
+                            None]
         self.description_label = QLabel()
-        self.runTime = []
+        self.runTime = [None,
+                        None,
+                        None,
+                        None,
+                        None]
         self.runTime_label = QLabel()
-        self.plot = []
+        self.plot = [None,
+                     None,
+                     None,
+                     None,
+                     None]
         self.plot_label = QLabel()
         self.thread = threading.Thread(target=self.search_url)
+        self.num = 0
 
         self.setup_ui()
 
     def setup_ui(self):
         self.setWindowTitle('uvFlix')
-        self.resize(1000, 350)
+        self.resize(1000,350)
 
         self.texto.setFixedWidth(800)
         self.texto.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
 
         self.button.setFixedWidth(50)
-        self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed))
 
         self.button.clicked.connect(lambda: self.thread.start())
         self.infor.clicked.connect(lambda: self.click(0))
@@ -71,11 +90,11 @@ class VentanaPrincipal(QMainWindow):
 
         self.superior.addWidget(self.texto)
         self.superior.addWidget(self.button)
-        x = 0
+        x=0
         for i in self.image_label:
-            self.center.addWidget(i, 1, x)
-            x = x + 1
-        self.center.addWidget(self.infor, 2, 0)
+            self.center.addWidget(i,1,x)
+            x = x+1
+        self.center.addWidget(self.infor,2,0)
         self.center.addWidget(self.infor2, 2, 1)
         self.center.addWidget(self.infor3, 2, 2)
         self.center.addWidget(self.infor4, 2, 3)
@@ -88,49 +107,44 @@ class VentanaPrincipal(QMainWindow):
         self.setCentralWidget(self.container)
 
     def search_url(self):
-        d = 'https://clandestina-hds.com/movies/title?search='
         movies = self.texto.text().split(sep=',', maxsplit=5)
-        t = []
-        for h in movies:
-            t.append(d + h)
+        thread_lst = []
 
-        r = []
-
-        for i in t:
-            r.append(requests.get(i))
-
-        data = []
-
-        for q in r:
-            data.append(q.json())
-
-        data2 = []
-        for v in data:
-            data2.append(v['results'])
-
-        data3 = []
-
-        for n in data2:
-            data3.append(n[0:3])
-        y = 0
-        for k in data3:
-            self.url_image.append(k[0]['image'])
-            self.id.append(k[0]['id'])
-            self.title.append(k[0]['title'])
-            self.description.append(k[0]['description'])
-            self.runTime.append(k[0]['runtimeStr'])
-            self.plot.append(k[0]['plot'])
-            y = y + 1
         x = 0
-        for m in self.image:
-            if x != y:
-                m.loadFromData(requests.get(self.url_image[x]).content)
-                pixmap = QPixmap(m)
-                pixmap2 = pixmap.scaledToWidth(200)
-                self.image_label[x].setPixmap(pixmap2)
-                x = x + 1
 
-    def click(self, num):
+        for i in movies:
+            thread_lst.append(threading.Thread(target=self.search_movie, args=(i,x)))
+            x = x+1
+
+        for j in thread_lst:
+            j.start()
+            #j.join()
+
+    def search_movie(self,title, num):
+        url = 'https://clandestina-hds.com/movies/title?search='
+        url2 = url + title
+
+        r = requests.get(url2)
+
+        data = r.json()
+        data2 = data['results']
+        data3 = data2[0:3]
+
+        self.url_image = data3[0]['image']
+        self.id[num] = data3[0]['id']
+        self.title[num] = (data3[0]['title'])
+        self.description[num] = data3[0]['description']
+        self.runTime[num] = data3[0]['runtimeStr']
+        self.plot[num] = data3[0]['plot']
+
+        self.image[num].loadFromData(requests.get(self.url_image).content)
+        pixmap = QPixmap(self.image[num])
+        pixmap2 = pixmap.scaledToWidth(200)
+        self.image_label[num].setPixmap(pixmap2)
+
+
+
+    def click(self,num):
         x = num
         self.windowTwo.setWindowTitle('Informacion')
 
@@ -155,6 +169,7 @@ class VentanaPrincipal(QMainWindow):
         self.center_two.addWidget(self.runTime_label)
         self.center_two.addWidget(self.plot_label)
 
+
         self.container_two.setLayout(self.center_two)
 
         self.windowTwo.setCentralWidget(self.container_two)
@@ -167,4 +182,4 @@ if __name__ == '__main__':
     window.show()
     app.exec_()
 
-    # moana, jumanji, frozen, Big Hero 6, Inside Out
+    #moana, jumanji, frozen, Big Hero 6, Inside Out
