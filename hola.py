@@ -2,6 +2,30 @@ from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy, QVBoxLayout, QMai
 import requests
 from PyQt5.QtGui import QImage, QPixmap
 import threading
+from PyQt5.QtCore import Qt, pyqtSignal, QTimer
+
+class QLabelClickable(QLabel):
+    clicked = pyqtSignal(str)
+
+    def __int__(self, parent = None):
+        super(QLabelClickable, self).__init__(parent)
+
+    def mousePressEvent(self, event):
+        self.ultimo = "Clic"
+
+    def mouseReleaseEvent(self, event):
+        if self.ultimo == "Clic":
+            QTimer.singleShot(QApplication.instance().doubleClickInterval(),
+                              self.performSingleClickAction)
+        else:
+            self.clicked.emit(self.ultimo)
+
+    def mouseDoubleClickEvent(self, event):
+        self.ultimo = "Doble clic"
+
+    def performSingleClickAction(self):
+        if self.ultimo == "Clic":
+            self.clicked.emit(self.ultimo)
 
 class VentanaPrincipal(QMainWindow):
 
@@ -30,11 +54,11 @@ class VentanaPrincipal(QMainWindow):
                       QImage(),
                       QImage(),
                       QImage()]
-        self.image_label = [QLabel(),
-                            QLabel(),
-                            QLabel(),
-                            QLabel(),
-                            QLabel()]
+        self.image_label = [QLabelClickable(),
+                            QLabelClickable(),
+                            QLabelClickable(),
+                            QLabelClickable(),
+                            QLabelClickable()]
         self.url_image = None
         self.id = [None,
                    None,
@@ -90,12 +114,19 @@ class VentanaPrincipal(QMainWindow):
         self.infor4.setStyleSheet("background-color: grey;")
         self.infor5.setStyleSheet("background-color: grey;")
 
+        self.image_label[0].clicked.connect(lambda: self.click(0))
+        self.image_label[1].clicked.connect(lambda: self.click(1))
+        self.image_label[2].clicked.connect(lambda: self.click(2))
+        self.image_label[3].clicked.connect(lambda: self.click(3))
+        self.image_label[4].clicked.connect(lambda: self.click(4))
+
+
         self.button.clicked.connect(lambda: self.thread.start())
-        self.infor.clicked.connect(lambda: self.click(0))
-        self.infor2.clicked.connect(lambda: self.click(1))
-        self.infor3.clicked.connect(lambda: self.click(2))
-        self.infor4.clicked.connect(lambda: self.click(3))
-        self.infor5.clicked.connect(lambda: self.click(4))
+        # self.infor.clicked.connect(lambda: self.click(0))
+        # self.infor2.clicked.connect(lambda: self.click(1))
+        # self.infor3.clicked.connect(lambda: self.click(2))
+        # self.infor4.clicked.connect(lambda: self.click(3))
+        # self.infor5.clicked.connect(lambda: self.click(4))
 
         self.superior.addWidget(self.texto)
         self.superior.addWidget(self.button)
@@ -103,11 +134,11 @@ class VentanaPrincipal(QMainWindow):
         for i in self.image_label:
             self.center.addWidget(i,1,x)
             x = x+1
-        self.center.addWidget(self.infor,2,0)
-        self.center.addWidget(self.infor2, 2, 1)
-        self.center.addWidget(self.infor3, 2, 2)
-        self.center.addWidget(self.infor4, 2, 3)
-        self.center.addWidget(self.infor5, 2, 4)
+        # self.center.addWidget(self.infor,2,0)
+        # self.center.addWidget(self.infor2, 2, 1)
+        # self.center.addWidget(self.infor3, 2, 2)
+        # self.center.addWidget(self.infor4, 2, 3)
+        # self.center.addWidget(self.infor5, 2, 4)
 
         self.center1.addLayout(self.superior)
         self.center1.addLayout(self.center)
