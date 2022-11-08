@@ -74,12 +74,21 @@ class VentanaPrincipal(QMainWindow):
     def setup_ui(self):
         self.setWindowTitle('uvFlix')
         self.resize(1000,350)
+        self.setStyleSheet("background-color: black;")
 
         self.texto.setFixedWidth(800)
+        self.texto.setStyleSheet("background-color: white;")
         self.texto.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
 
         self.button.setFixedWidth(50)
+        self.button.setStyleSheet("background-color: grey;")
         self.button.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed))
+
+        self.infor.setStyleSheet("background-color: grey;")
+        self.infor2.setStyleSheet("background-color: grey;")
+        self.infor3.setStyleSheet("background-color: grey;")
+        self.infor4.setStyleSheet("background-color: grey;")
+        self.infor5.setStyleSheet("background-color: grey;")
 
         self.button.clicked.connect(lambda: self.thread.start())
         self.infor.clicked.connect(lambda: self.click(0))
