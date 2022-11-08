@@ -73,3 +73,5 @@ En el ejemplo que presentamos a continuación que se utilizan estos argumentos p
 
 #### RESULTADOS
 Interfaz, sus campos y busqueda de películas en el archivo **Busqueda de Películas.pptx**
+
+Video de la ejecución del programa **Ejecución del programa.mp4**
